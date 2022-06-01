@@ -6,6 +6,13 @@ learn [EMR Serverless](https://docs.aws.amazon.com/emr/latest/EMR-Serverless-Use
 - [Type](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-type) - Spark or HIVE
 - [ReleaseLabel](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-releaselabel) - EMR release version associated with the application.  see [Release versions](https://docs.aws.amazon.com/emr/latest/EMR-Serverless-UserGuide/release-versions.html)
 
+## general flow
+
+1. create application
+1. start application
+   - > your application is setup to start with pre-initialized capacity of 1 Spark driver and 1 Spark executor. Your application is by default configured to start when jobs are submitted and stop when the application is idle for more than 15 minutes. 
+1. submit application jobs  
+
 ## Resource Types
 
 - application - `arn:${Partition}:emr-serverless:${Region}:${Account}:/applications/${ApplicationId}`
