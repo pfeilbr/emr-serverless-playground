@@ -5,6 +5,12 @@ learn [EMR Serverless](https://docs.aws.amazon.com/emr/latest/EMR-Serverless-Use
 
 - [Type](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-type) - Spark or HIVE
 - [ReleaseLabel](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-releaselabel) - EMR release version associated with the application.  see [Release versions](https://docs.aws.amazon.com/emr/latest/EMR-Serverless-UserGuide/release-versions.html)
+- EMR Serverless is a Regional service
+- [Job run states](https://docs.aws.amazon.com/emr/latest/EMR-Serverless-UserGuide/job-states.html)
+- [Spark examples](https://docs.aws.amazon.com/emr/latest/EMR-Serverless-UserGuide/jobs-spark.html#spark-examples)
+- [Hive job examples](https://docs.aws.amazon.com/emr/latest/EMR-Serverless-UserGuide/jobs-hive.html#hive-examples)
+- [Using Python libraries with EMR Serverless](https://docs.aws.amazon.com/emr/latest/EMR-Serverless-UserGuide/using-python-libraries.html)
+- [Submitting jobs from Airflow](https://docs.aws.amazon.com/emr/latest/EMR-Serverless-UserGuide/using-airflow.html)
 
 ## general flow
 
