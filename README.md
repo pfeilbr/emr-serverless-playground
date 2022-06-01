@@ -16,6 +16,10 @@ example `AWS::EMRServerless::Application` usage in cfn
 - <https://github.com/aws-samples/emr-serverless-samples/blob/main/cloudformation/emr_serverless_spark_app.yaml#L6>
 - <https://github.com/aws-samples/emr-serverless-samples/blob/main/cloudformation/emr_serverless_full_deployment.yaml#L61>
 
+## Questions
+
+- are EC2 instances created and visible in customer EC2 console?  or are they hidden?
+
 ## Resources
 
 - [EMR Serverless](https://docs.aws.amazon.com/emr/latest/EMR-Serverless-UserGuide/emr-serverless.html)
