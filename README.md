@@ -14,6 +14,7 @@ learn [EMR Serverless](https://docs.aws.amazon.com/emr/latest/EMR-Serverless-Use
 ## Demo
 
 ```sh
+# deploy template.yaml
 sam deploy --guided
 
 aws emr-serverless get-application \
@@ -52,11 +53,55 @@ aws emr-serverless start-job-run \
     --execution-role-arn $EXECUTION_ROLE_ARN \
     --job-driver '{
         "sparkSubmit": {
-          "entryPoint": "s3://$BUCKET_NAME/scripts/wordcount.py",
-          "entryPointArguments": ["s3://$BUCKET_NAME/emr-serverless-spark/output"],
+          "entryPoint": "s3://emr-serverless-playground-scriptbucket-1fl6snd6viqk6/scripts/wordcount.py",
+          "entryPointArguments": ["s3://emr-serverless-playground-scriptbucket-1fl6snd6viqk6/emr-serverless-spark/output"],
           "sparkSubmitParameters": "--conf spark.executor.cores=1 --conf spark.executor.memory=4g --conf spark.driver.cores=1 --conf spark.driver.memory=4g --conf spark.executor.instances=1"
         }
     }'
+# output
+{
+    "applicationId": "00f1du6284vksm09",
+    "jobRunId": "00f1e0i4fr44ra01",
+    "arn": "arn:aws:emr-serverless:us-east-1:529276214230:/applications/00f1du6284vksm09/jobruns/00f1e0i4fr44ra01"
+}
+
+JOB_RUN_ID="00f1e0i4fr44ra01"
+aws emr-serverless get-job-run \
+    --application-id $APPLICATION_ID \
+    --job-run-id $JOB_RUN_ID
+
+# output
+{
+    "jobRun": {
+        "applicationId": "00f1du6284vksm09",
+        "jobRunId": "00f1e0i4fr44ra01",
+        "arn": "arn:aws:emr-serverless:us-east-1:529276214230:/applications/00f1du6284vksm09/jobruns/00f1e0i4fr44ra01",
+        "createdBy": "arn:aws:sts::529276214230:assumed-role/AWSReservedSSO_AWSAdministratorAccess_af1bdd24238208b5/pfeilbr",
+        "createdAt": "2022-06-02T22:22:36.221000+00:00",
+        "updatedAt": "2022-06-02T22:28:06.614000+00:00",
+        "executionRole": "arn:aws:iam::529276214230:role/EMRServerless_Job_Execution_Role",
+        "state": "SUCCESS",
+        "stateDetails": "",
+        "releaseLabel": "emr-6.6.0",
+        "jobDriver": {
+            "sparkSubmit": {
+                "entryPoint": "s3://emr-serverless-playground-scriptbucket-1fl6snd6viqk6/scripts/wordcount.py",
+                "entryPointArguments": [
+                    "s3://emr-serverless-playground-scriptbucket-1fl6snd6viqk6/emr-serverless-spark/output"
+                ],
+                "sparkSubmitParameters": "--conf spark.executor.cores=1 --conf spark.executor.memory=4g --conf spark.driver.cores=1 --conf spark.driver.memory=4g --conf spark.executor.instances=1"
+            }
+        },
+        "tags": {},
+        "totalResourceUtilization": {
+            "vCPUHour": 0.066,
+            "memoryGBHour": 0.331,
+            "storageGBHour": 1.322
+        }
+    }
+}
+
+JOB_RUN_LOGS="s3://$BUCKET_NAME/emr-serverless-spark/logs/applications/$APPLICATION_ID/jobs/$JOB_RUN_ID"
 ```
 
 ## Notes
@@ -151,6 +196,16 @@ example `AWS::EMRServerless::Application` usage in cfn
 
 - <https://github.com/aws-samples/emr-serverless-samples/blob/main/cloudformation/emr_serverless_spark_app.yaml#L6>
 - <https://github.com/aws-samples/emr-serverless-samples/blob/main/cloudformation/emr_serverless_full_deployment.yaml#L61>
+
+## AWS Console Screenshots
+
+![](https://www.evernote.com/l/AAEj8OzU8ExBuqoCxCyUHu2FYNHsxHfbmZ0B/image.png)
+
+![](https://www.evernote.com/l/AAH8fqtRIHlP6LCbGaVp9ngkM7SZXWXz-iMB/image.png)
+
+![](https://www.evernote.com/l/AAH0lS5-luNKPLe90F9saH8sgYXDac8sdHoB/image.png)
+
+![](https://www.evernote.com/l/AAHM7sq2O4NJbIvDO70SoQY9YAqMaDkfBrEB/image.png)
 
 ## Questions
 
