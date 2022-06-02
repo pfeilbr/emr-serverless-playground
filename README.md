@@ -11,6 +11,54 @@ learn [EMR Serverless](https://docs.aws.amazon.com/emr/latest/EMR-Serverless-Use
    - > your application is setup to start with pre-initialized capacity of 1 Spark driver and 1 Spark executor. Your application is by default configured to start when jobs are submitted and stop when the application is idle for more than 15 minutes. 
 1. submit application jobs. e.g. spark or hive
 
+## Demo
+
+```sh
+sam deploy --guided
+
+aws emr-serverless get-application \
+    --application-id 00f1du6284vksm09
+{
+    "application": {
+        "applicationId": "00f1du6284vksm09",
+        "name": "spark-3.2",
+        "arn": "arn:aws:emr-serverless:us-east-1:529276214230:/applications/00f1du6284vksm09",
+        "releaseLabel": "emr-6.6.0",
+        "type": "Spark",
+        "state": "CREATED",
+        "stateDetails": "",
+        "createdAt": "2022-06-02T20:09:49.041000+00:00",
+        "updatedAt": "2022-06-02T20:09:49.667000+00:00",
+        "tags": {
+            "tag-on-create-key": "tag-on-create-value"
+        },
+        "autoStartConfiguration": {
+            "enabled": true
+        },
+        "autoStopConfiguration": {
+            "enabled": true,
+            "idleTimeoutMinutes": 15
+        }
+    }
+}
+
+aws s3 cp s3://us-east-1.elasticmapreduce/emr-containers/samples/wordcount/scripts/wordcount.py s3://emr-serverless-playground-scriptbucket-1fl6snd6viqk6/scripts/
+
+APPLICATION_ID="00f1du6284vksm09"
+EXECUTION_ROLE_ARN="arn:aws:iam::529276214230:role/EMRServerless_Job_Execution_Role"
+BUCKET_NAME="emr-serverless-playground-scriptbucket-1fl6snd6viqk6"
+aws emr-serverless start-job-run \
+    --application-id $APPLICATION_ID \
+    --execution-role-arn $EXECUTION_ROLE_ARN \
+    --job-driver '{
+        "sparkSubmit": {
+          "entryPoint": "s3://$BUCKET_NAME/scripts/wordcount.py",
+          "entryPointArguments": ["s3://$BUCKET_NAME/emr-serverless-spark/output"],
+          "sparkSubmitParameters": "--conf spark.executor.cores=1 --conf spark.executor.memory=4g --conf spark.driver.cores=1 --conf spark.driver.memory=4g --conf spark.executor.instances=1"
+        }
+    }'
+```
+
 ## Notes
 
 - [Type](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-type) - Spark or HIVE
