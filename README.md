@@ -106,6 +106,7 @@ JOB_RUN_LOGS="s3://$BUCKET_NAME/emr-serverless-spark/logs/applications/$APPLICAT
 
 ## Notes
 
+- unlike EMR the EC2 instances backing EMR-Serverless applications/jobs are not visible to the customer / fully managed (e.g. not visible in the customer EC2 console)
 - [Type](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-type) - Spark or HIVE
 - [ReleaseLabel](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emrserverless-application.html#cfn-emrserverless-application-releaselabel) - EMR release version associated with the application.  see [Release versions](https://docs.aws.amazon.com/emr/latest/EMR-Serverless-UserGuide/release-versions.html)
 - EMR Serverless is a Regional service
@@ -206,10 +207,6 @@ example `AWS::EMRServerless::Application` usage in cfn
 ![](https://www.evernote.com/l/AAH0lS5-luNKPLe90F9saH8sgYXDac8sdHoB/image.png)
 
 ![](https://www.evernote.com/l/AAHM7sq2O4NJbIvDO70SoQY9YAqMaDkfBrEB/image.png)
-
-## Questions
-
-- are EC2 instances created and visible in customer EC2 console?  or are they hidden?
 
 ## Resources
 
